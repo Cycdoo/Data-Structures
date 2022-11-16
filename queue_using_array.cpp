@@ -1,0 +1,81 @@
+#include<iostream>
+using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+ 
+struct queue
+{
+    int size;
+    int f;
+    int r;
+    int* arr;
+};
+ 
+// integer variable f to store the front end index, and an integer variable r to store the index of the rear end.
+
+int isEmpty(struct queue *q){
+    if(q->r==q->f){
+        return 1;
+    }
+    return 0;
+}
+ 
+int isFull(struct queue *q){
+    if(q->r==q->size-1){
+        return 1;
+    }
+    return 0;
+}
+ 
+void enqueue(struct queue *q, int val){
+    if(isFull(q)){
+        printf("This Queue is full\n");
+    }
+    else{
+        q->r++;
+        q->arr[q->r] = val;
+        printf("Enqued element: %d\n", val);
+    }
+}
+ 
+int dequeue(struct queue *q){
+    int a = -1;
+    if(isEmpty(q)){
+        printf("This Queue is empty\n");
+    }
+    else{
+        q->f++;
+        a = q->arr[q->f]; 
+    }
+    return a;
+}
+ 
+int main(){
+    struct queue q;
+    q.size = 4;
+    q.f = q.r = 0;
+    q.arr = (int*) malloc(q.size*sizeof(int));
+    
+    // Enqueue few elements
+    enqueue(&q, 74);
+    enqueue(&q, 13);
+    enqueue(&q, 100); 
+    printf("Dequeuing element %d\n", dequeue(&q));
+    printf("Dequeuing element %d\n", dequeue(&q));
+    printf("Dequeuing element %d\n", dequeue(&q)); 
+    enqueue(&q, 42);
+    enqueue(&q, 45);
+    enqueue(&q, 1);
+ 
+    if(isEmpty(&q)){
+        printf("Queue is empty\n");
+    }
+    if(isFull(&q)){
+        printf("Queue is full\n");
+    }
+ 
+    return 0;
+}
+
+//Noriah Mudasir - B20102132
